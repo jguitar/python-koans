@@ -33,8 +33,29 @@ from runner.koan import *
 # Your goal is to write the score method.
 
 def score(dice):
-    # You need to write this method
-    pass
+    result = 0
+
+    VALUES = {
+        1: [1000, 100],
+        2: [200, 0],
+        3: [300, 0],
+        4: [400, 0],
+        5: [500, 50],
+        6: [600, 0]
+    }
+
+    for face in range(1, 6 + 1):
+        n = len([i for i in dice if i == face])
+
+        triple_value, single_value = VALUES[face]
+
+        if n >= 3:
+            result += triple_value
+            result += (single_value * (n - 3))
+        else:
+            result += (single_value * n)
+
+    return result
 
 class AboutScoringProject(Koan):
     def test_score_of_an_empty_list_is_zero(self):
